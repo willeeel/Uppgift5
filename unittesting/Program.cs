@@ -40,18 +40,18 @@ namespace ConsoleApp
         {
             while (true)
             {
-                int temp = rnd.Next(10, 50);
-                int hum = rnd.Next(30, 60);
+                int temperature = rnd.Next(10, 50);
+                int humidity = rnd.Next(30, 60);
 
                 var data = new
                 {
-                    temperature = temp,
-                    humidity = hum
+                    temperature = temperature,
+                    humidity = humidity
                 };
 
                 var json = JsonConvert.SerializeObject(data);
                 var payload = new Message(Encoding.UTF8.GetBytes(json));
-                payload.Properties.Add("temperatureAlert", (temp > 30) ? "true" : "false");
+                payload.Properties.Add("temperatureAlert", (temperature > 30) ? "true" : "false");
 
                 await deviceClient.SendEventAsync(payload);
                 Console.WriteLine($"Message sent: {json}");
